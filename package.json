@@ -30,8 +30,8 @@
   "dependencies": {
     "has-to-string-tag-x": "^1.2.0",
     "lodash.isnull": "^3.0.0",
-    "to-string-tag-x": "^1.1.1",
-    "white-space-x": "^1.1.1"
+    "to-string-tag-x": "^1.2.0",
+    "white-space-x": "^1.2.0"
   },
   "devDependencies": {
     "@ljharb/eslint-config": "^11.0.0",
