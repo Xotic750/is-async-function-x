@@ -1,6 +1,6 @@
 {
   "name": "is-async-function-x",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Determine if a function is a native aync function.",
   "homepage": "https://github.com/Xotic750/is-async-function-x",
   "author": {

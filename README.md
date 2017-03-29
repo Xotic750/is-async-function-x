@@ -28,7 +28,7 @@ Determine if a function is a native aync function.
 Requires ES3 or above.
 
 **See**: [14.6 Async Function Definitions](https://tc39.github.io/ecma262/#sec-async-function-definitions)  
-**Version**: 1.0.0  
+**Version**: 1.0.1  
 **Author**: Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
@@ -60,5 +60,5 @@ isAsyncFunction(function* test1() {}); // false
 isAsyncFunction(function test2(a, b) {}); // false
 isAsyncFunction(class Test {}); // false
 isAsyncFunction((x, y) => {return this;}); // false
-isAsyncFunction(async functin() {}); // false
+isAsyncFunction(async functin() {}); // true
 ```
