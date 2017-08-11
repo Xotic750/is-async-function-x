@@ -24,7 +24,7 @@
 Determine if a function is a native aync function.
 
 **See**: [14.6 Async Function Definitions](https://tc39.github.io/ecma262/#sec-async-function-definitions)  
-**Version**: 1.1.0  
+**Version**: 1.3.0  
 **Author**: Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
