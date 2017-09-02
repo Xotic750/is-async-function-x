@@ -1,7 +1,7 @@
 /**
  * @file Determine if a function is a native aync function.
  * @see {@link https://tc39.github.io/ecma262/#sec-async-function-definitions|14.6 Async Function Definitions}
- * @version 1.5.0
+ * @version 1.5.1
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
