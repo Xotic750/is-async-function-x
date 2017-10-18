@@ -1,7 +1,7 @@
 /**
  * @file Determine if a function is a native aync function.
  * @see {@link https://tc39.github.io/ecma262/#sec-async-function-definitions|14.6 Async Function Definitions}
- * @version 1.5.1
+ * @version 1.6.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -14,17 +14,19 @@ var toStringTag = require('to-string-tag-x');
 var hasToStringTag = require('has-to-string-tag-x');
 var normalise = require('normalize-space-x');
 var isFnRegex = /^async function/;
+var test = isFnRegex.test;
 var replaceComments = require('replace-comments-x');
-var fToString = Function.prototype.toString;
+var functionCtr = function () {}.constructor;
+var fToString = functionCtr.prototype.toString;
 var $getPrototypeOf = require('get-prototype-of-x');
+var attempt = require('attempt-x');
 
-var asyncProto;
-var supportsAsync = false;
-try {
-  // eslint-disable-next-line no-new-func
-  asyncProto = $getPrototypeOf(Function('return async function() {}')());
-  supportsAsync = true;
-} catch (ignore) {}
+var testRes = attempt(function () {
+  return $getPrototypeOf(functionCtr('return async function() {}')());
+});
+
+var supportsAsync = testRes.threw === false;
+var asyncProto = testRes.value;
 
 /**
  * Checks if `value` is classified as an `Async Function` object.
@@ -60,7 +62,7 @@ module.exports = function isAsyncFunction(fn) {
     return false;
   }
 
-  if (isFnRegex.test(str)) {
+  if (test.call(isFnRegex, str)) {
     return true;
   }
 
