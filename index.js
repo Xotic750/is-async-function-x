@@ -1,7 +1,7 @@
 /**
  * @file Determine if a function is a native aync function.
  * @see {@link https://tc39.github.io/ecma262/#sec-async-function-definitions|14.6 Async Function Definitions}
- * @version 1.6.0
+ * @version 1.7.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -12,7 +12,7 @@
 
 var toStringTag = require('to-string-tag-x');
 var hasToStringTag = require('has-to-string-tag-x');
-var normalise = require('normalize-space-x');
+var normalise = require('normalize-space-x').normalizeSpace2018;
 var isFnRegex = /^async function/;
 var test = isFnRegex.test;
 var replaceComments = require('replace-comments-x');
