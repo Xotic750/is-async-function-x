@@ -1,17 +1,19 @@
-'use strict';
+let isAsyncFunction;
 
-var isAsyncFunction;
 if (typeof module === 'object' && module.exports) {
   require('es5-shim');
   require('es5-shim/es5-sham');
+
   if (typeof JSON === 'undefined') {
     JSON = {};
   }
+
   require('json3').runInContext(null, JSON);
   require('es6-shim');
-  var es7 = require('es7-shim');
-  Object.keys(es7).forEach(function (key) {
-    var obj = es7[key];
+  const es7 = require('es7-shim');
+  Object.keys(es7).forEach(function(key) {
+    const obj = es7[key];
+
     if (typeof obj.shim === 'function') {
       obj.shim();
     }
@@ -21,17 +23,17 @@ if (typeof module === 'object' && module.exports) {
   isAsyncFunction = returnExports;
 }
 
-var asyncFunc;
+let asyncFunc;
 try {
   // eslint-disable-next-line no-new-func
   asyncFunc = new Function('return async function() {}')();
 } catch (ignore) {}
 
-var ifSupportsAFit = asyncFunc ? it : xit;
+const ifSupportsAFit = asyncFunc ? it : xit;
 
-describe('Basic tests', function () {
-  it('should return `false` for everything', function () {
-    var values = [
+describe('basic tests', function() {
+  it('should return `false` for everything', function() {
+    const values = [
       true,
       'abc',
       1,
@@ -44,7 +46,7 @@ describe('Basic tests', function () {
       String,
       Boolean,
       Array,
-      function () {},
+      function() {},
       // eslint-disable-next-line no-unused-vars
       function test(a) {},
       // eslint-disable-next-line no-new-func
@@ -52,41 +54,42 @@ describe('Basic tests', function () {
       // eslint-disable-next-line no-unused-vars
       function test1(a, b) {},
       // eslint-disable-next-line no-unused-vars
-      function test2(a/* , foo*/) {},
+      function test2(a /* , foo */) {},
       // eslint-disable-next-line no-unused-vars
-      function test3(a/* , foo*/, b) { },
+      function test3(a /* , foo */, b) {},
       // eslint-disable-next-line no-unused-vars
-      function test4(a/* , foo*/, b) { },
+      function test4(a /* , foo */, b) {},
       // eslint-disable-next-line no-unused-vars
-      function/* foo*/test5(a/* , foo*/, b) {},
+      function /* foo */ test5(a /* , foo */, b) {},
       // eslint-disable-next-line no-unused-vars
-      function/* foo*/test6/* bar*/(a/* , foo*/, b) {},
-      function/* foo*/test7/* bar*/(/* baz*/) {},
-      /* fum*/function/* foo*/ // blah
-      test8(/* baz*/a // eslint-disable-line no-unused-vars
-      ) {}
+      function /* foo */ test6 /* bar */(a /* , foo */, b) {},
+      function /* foo */ test7 /* bar */(/* baz */) {},
+      /* fum */ function /* foo */ // blah
+      test8(
+        /* baz */ a, // eslint-disable-line no-unused-vars
+      ) {},
     ];
-    var expected = values.map(function () {
+    const expected = values.map(function() {
       return false;
     });
-    var actual = values.map(isAsyncFunction);
-    expect(actual).toEqual(expected);
+    const actual = values.map(isAsyncFunction);
+    expect(actual).toStrictEqual(expected);
 
-    var fat;
+    let fat;
     try {
       // eslint-disable-next-line no-new-func
       fat = new Function('return (x, y) => {return this;};')();
       expect(isAsyncFunction(fat)).toBe(false);
     } catch (ignore) {}
 
-    var gen;
+    let gen;
     try {
       // eslint-disable-next-line no-new-func
       gen = new Function('return function* idMaker(x, y){};')();
       expect(isAsyncFunction(gen)).toBe(false);
     } catch (ignore) {}
 
-    var classes;
+    let classes;
     try {
       // eslint-disable-next-line no-new-func
       classes = new Function('"use strict"; return class My {};')();
@@ -94,7 +97,7 @@ describe('Basic tests', function () {
     } catch (ignore) {}
   });
 
-  ifSupportsAFit('should return `true`', function () {
+  ifSupportsAFit('should return `true`', function() {
     expect(isAsyncFunction(asyncFunc)).toBe(true);
     // eslint-disable-next-line no-new-func
     asyncFunc = new Function('return /*fgdfg*/ async /*eerwe*/ function(/*as*/) {}')();

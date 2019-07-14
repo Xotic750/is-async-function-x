@@ -8,25 +8,25 @@
  * @module is-async-function-x
  */
 
-'use strict';
+const toStringTag = require('to-string-tag-x');
+const hasToStringTag = require('has-to-string-tag-x');
+const normalise = require('normalize-space-x').normalizeSpace2018;
 
-var toStringTag = require('to-string-tag-x');
-var hasToStringTag = require('has-to-string-tag-x');
-var normalise = require('normalize-space-x').normalizeSpace2018;
-var isFnRegex = /^async function/;
-var test = isFnRegex.test;
-var replaceComments = require('replace-comments-x');
-var functionCtr = function () {}.constructor;
-var fToString = functionCtr.prototype.toString;
-var $getPrototypeOf = require('get-prototype-of-x');
-var attempt = require('attempt-x');
+const isFnRegex = /^async function/;
+const {test} = isFnRegex;
+const replaceComments = require('replace-comments-x');
 
-var testRes = attempt(function () {
+const functionCtr = function() {}.constructor;
+const fToString = functionCtr.prototype.toString;
+const $getPrototypeOf = require('get-prototype-of-x');
+const attempt = require('attempt-x');
+
+const testRes = attempt(function() {
   return $getPrototypeOf(functionCtr('return async function() {}')());
 });
 
-var supportsAsync = testRes.threw === false;
-var asyncProto = testRes.value;
+const supportsAsync = testRes.threw === false;
+const asyncProto = testRes.value;
 
 /**
  * Checks if `value` is classified as an `Async Function` object.
@@ -55,7 +55,7 @@ module.exports = function isAsyncFunction(fn) {
     return false;
   }
 
-  var str;
+  let str;
   try {
     str = normalise(replaceComments(fToString.call(fn), ' '));
   } catch (ignore) {
