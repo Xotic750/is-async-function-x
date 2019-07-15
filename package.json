@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "attempt-x": "^2.0.4",
-    "get-prototype-of-x": "^2.0.0",
+    "get-prototype-of-x": "^2.0.1",
     "has-to-string-tag-x": "^2.0.4",
     "normalize-space-x": "^4.0.17",
     "replace-comments-x": "^3.0.5",
