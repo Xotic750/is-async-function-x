@@ -1,13 +1,3 @@
-/**
- * @file Determine if a function is a native aync function.
- * @see {@link https://tc39.github.io/ecma262/#sec-async-function-definitions|14.6 Async Function Definitions}
- * @version 1.7.0
- * @author Xotic750 <Xotic750@gmail.com>
- * @copyright  Xotic750
- * @license {@link <https://opensource.org/licenses/MIT> MIT}
- * @module is-async-function-x
- */
-
 import toStringTag from 'to-string-tag-x';
 
 import hasToStringTag from 'has-to-string-tag-x';
@@ -35,21 +25,6 @@ const asyncProto = testRes.value;
  * @param {*} fn - The value to check.
  * @returns {boolean} Returns `true` if `value` is correctly classified,
  * else `false`.
- * @example
- * var isAsyncFunction = require('is--async-function-x');
- *
- * isAsyncFunction(); // false
- * isAsyncFunction(Number.MIN_VALUE); // false
- * isAsyncFunction('abc'); // false
- * isAsyncFunction(true); // false
- * isAsyncFunction({ name: 'abc' }); // false
- * isAsyncFunction(function () {}); // false
- * isAsyncFunction(new Function ()); // false
- * isAsyncFunction(function* test1() {}); // false
- * isAsyncFunction(function test2(a, b) {}); // false
- * isAsyncFunction(class Test {}); // false
- * isAsyncFunction((x, y) => {return this;}); // false
- * isAsyncFunction(async functin() {}); // true
  */
 export default function isAsyncFunction(fn) {
   if (supportsAsync === false || typeof fn !== 'function') {
