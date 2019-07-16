@@ -2,7 +2,6 @@ let isAsyncFunction;
 
 let asyncFunc;
 try {
-  // eslint-disable-next-line no-new-func
   asyncFunc = new Function('return async function() {}')();
 } catch (ignore) {
   // empty
@@ -29,7 +28,7 @@ describe('basic tests', function() {
       function() {},
       // eslint-disable-next-line no-unused-vars
       function test(a) {},
-      // eslint-disable-next-line no-new-func
+
       new Function(),
       // eslint-disable-next-line no-unused-vars
       function test1(a, b) {},
@@ -57,7 +56,6 @@ describe('basic tests', function() {
 
     let fat;
     try {
-      // eslint-disable-next-line no-new-func
       fat = new Function('return (x, y) => {return this;};')();
       expect(isAsyncFunction(fat)).toBe(false);
     } catch (ignore) {
@@ -66,7 +64,6 @@ describe('basic tests', function() {
 
     let gen;
     try {
-      // eslint-disable-next-line no-new-func
       gen = new Function('return function* idMaker(x, y){};')();
       expect(isAsyncFunction(gen)).toBe(false);
     } catch (ignore) {
@@ -75,7 +72,6 @@ describe('basic tests', function() {
 
     let classes;
     try {
-      // eslint-disable-next-line no-new-func
       classes = new Function('"use strict"; return class My {};')();
       expect(isAsyncFunction(classes)).toBe(false);
     } catch (ignore) {
@@ -86,7 +82,7 @@ describe('basic tests', function() {
   ifSupportsAFit('should return `true`', function() {
     expect.assertions(1);
     expect(isAsyncFunction(asyncFunc)).toBe(true);
-    // eslint-disable-next-line no-new-func
+
     asyncFunc = new Function('return /*fgdfg*/ async /*eerwe*/ function(/*as*/) {}')();
     expect(isAsyncFunction(asyncFunc)).toBe(true);
   });
