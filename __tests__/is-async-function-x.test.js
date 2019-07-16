@@ -33,6 +33,7 @@ const ifSupportsAFit = asyncFunc ? it : xit;
 
 describe('basic tests', function() {
   it('should return `false` for everything', function() {
+    expect.assertions(1);
     const values = [
       true,
       'abc',
@@ -98,6 +99,7 @@ describe('basic tests', function() {
   });
 
   ifSupportsAFit('should return `true`', function() {
+    expect.assertions(1);
     expect(isAsyncFunction(asyncFunc)).toBe(true);
     // eslint-disable-next-line no-new-func
     asyncFunc = new Function('return /*fgdfg*/ async /*eerwe*/ function(/*as*/) {}')();

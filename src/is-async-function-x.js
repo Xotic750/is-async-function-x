@@ -8,18 +8,19 @@
  * @module is-async-function-x
  */
 
-const toStringTag = require('to-string-tag-x');
-const hasToStringTag = require('has-to-string-tag-x');
-const normalise = require('normalize-space-x').normalizeSpace2018;
+import toStringTag from 'to-string-tag-x';
+
+import hasToStringTag from 'has-to-string-tag-x';
+import {normalizeSpace2018 as normalise} from 'normalize-space-x';
+import replaceComments from 'replace-comments-x';
+import $getPrototypeOf from 'get-prototype-of-x';
+import attempt from 'attempt-x';
 
 const isFnRegex = /^async function/;
 const {test} = isFnRegex;
-const replaceComments = require('replace-comments-x');
 
 const functionCtr = function() {}.constructor;
 const fToString = functionCtr.prototype.toString;
-const $getPrototypeOf = require('get-prototype-of-x');
-const attempt = require('attempt-x');
 
 const testRes = attempt(function() {
   return $getPrototypeOf(functionCtr('return async function() {}')());
@@ -50,7 +51,7 @@ const asyncProto = testRes.value;
  * isAsyncFunction((x, y) => {return this;}); // false
  * isAsyncFunction(async functin() {}); // true
  */
-module.exports = function isAsyncFunction(fn) {
+export default function isAsyncFunction(fn) {
   if (supportsAsync === false || typeof fn !== 'function') {
     return false;
   }
@@ -71,4 +72,4 @@ module.exports = function isAsyncFunction(fn) {
   }
 
   return $getPrototypeOf(fn) === asyncProto;
-};
+}
