@@ -27,12 +27,15 @@ let asyncFunc;
 try {
   // eslint-disable-next-line no-new-func
   asyncFunc = new Function('return async function() {}')();
-} catch (ignore) {}
+} catch (ignore) {
+  // empty
+}
 
 const ifSupportsAFit = asyncFunc ? it : xit;
 
 describe('basic tests', function() {
   it('should return `false` for everything', function() {
+    expect.assertions(1);
     expect.assertions(1);
     const values = [
       true,
@@ -81,24 +84,31 @@ describe('basic tests', function() {
       // eslint-disable-next-line no-new-func
       fat = new Function('return (x, y) => {return this;};')();
       expect(isAsyncFunction(fat)).toBe(false);
-    } catch (ignore) {}
+    } catch (ignore) {
+      // empty
+    }
 
     let gen;
     try {
       // eslint-disable-next-line no-new-func
       gen = new Function('return function* idMaker(x, y){};')();
       expect(isAsyncFunction(gen)).toBe(false);
-    } catch (ignore) {}
+    } catch (ignore) {
+      // empty
+    }
 
     let classes;
     try {
       // eslint-disable-next-line no-new-func
       classes = new Function('"use strict"; return class My {};')();
       expect(isAsyncFunction(classes)).toBe(false);
-    } catch (ignore) {}
+    } catch (ignore) {
+      // empty
+    }
   });
 
   ifSupportsAFit('should return `true`', function() {
+    expect.assertions(1);
     expect.assertions(1);
     expect(isAsyncFunction(asyncFunc)).toBe(true);
     // eslint-disable-next-line no-new-func
