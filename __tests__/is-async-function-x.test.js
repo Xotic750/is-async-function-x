@@ -1,4 +1,4 @@
-let isAsyncFunction;
+import isAsyncFunction from '../src/is-async-function-x';
 
 let asyncFunc;
 try {
@@ -11,7 +11,7 @@ const ifSupportsAFit = asyncFunc ? it : xit;
 
 describe('basic tests', function() {
   it('should return `false` for everything', function() {
-    expect.assertions(1);
+    expect.assertions(4);
     const values = [
       true,
       'abc',
@@ -26,27 +26,24 @@ describe('basic tests', function() {
       Boolean,
       Array,
       function() {},
-      // eslint-disable-next-line no-unused-vars
+      /* eslint-disable-next-line no-unused-vars */
       function test(a) {},
-
       new Function(),
-      // eslint-disable-next-line no-unused-vars
+      /* eslint-disable-next-line no-unused-vars */
       function test1(a, b) {},
-      // eslint-disable-next-line no-unused-vars
+      /* eslint-disable-next-line no-unused-vars */
       function test2(a /* , foo */) {},
-      // eslint-disable-next-line no-unused-vars
+      /* eslint-disable-next-line no-unused-vars */
       function test3(a /* , foo */, b) {},
-      // eslint-disable-next-line no-unused-vars
+      /* eslint-disable-next-line no-unused-vars */
       function test4(a /* , foo */, b) {},
-      // eslint-disable-next-line no-unused-vars
+      /* eslint-disable-next-line no-unused-vars */
       function /* foo */ test5(a /* , foo */, b) {},
-      // eslint-disable-next-line no-unused-vars
+      /* eslint-disable-next-line no-unused-vars */
       function /* foo */ test6 /* bar */(a /* , foo */, b) {},
       function /* foo */ test7 /* bar */(/* baz */) {},
       /* fum */ function /* foo */ // blah
-      test8(
-        /* baz */ a, // eslint-disable-line no-unused-vars
-      ) {},
+      test8(/* baz */ a /* eslint-disable-line no-unused-vars */) {},
     ];
     const expected = values.map(function() {
       return false;
@@ -80,7 +77,7 @@ describe('basic tests', function() {
   });
 
   ifSupportsAFit('should return `true`', function() {
-    expect.assertions(1);
+    expect.assertions(2);
     expect(isAsyncFunction(asyncFunc)).toBe(true);
 
     asyncFunc = new Function('return /*fgdfg*/ async /*eerwe*/ function(/*as*/) {}')();

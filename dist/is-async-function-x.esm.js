@@ -1,23 +1,24 @@
+var _this = this;
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
 import toStringTag from 'to-string-tag-x';
 import hasToStringTag from 'has-to-string-tag-x';
 import normalise from 'normalize-space-x';
 import replaceComments from 'replace-comments-x';
 import $getPrototypeOf from 'get-prototype-of-x';
 import attempt from 'attempt-x';
+var isFnRegex = /^async function/;
+var test = isFnRegex.test;
+var functionCtr = attempt.constructor;
+var fToString = functionCtr.prototype.toString;
+var testRes = attempt(function () {
+  _newArrowCheck(this, _this);
 
-const isFnRegex = /^async function/;
-const {test} = isFnRegex;
-
-const functionCtr = attempt.constructor;
-const fToString = functionCtr.prototype.toString;
-
-const testRes = attempt(() => {
   return $getPrototypeOf(functionCtr('return async function() {}')());
-});
-
-const supportsAsync = testRes.threw === false;
-const asyncProto = testRes.value;
-
+}.bind(this));
+var supportsAsync = testRes.threw === false;
+var asyncProto = testRes.value;
 /**
  * Checks if `value` is classified as an `Async Function` object.
  *
@@ -25,12 +26,14 @@ const asyncProto = testRes.value;
  * @returns {boolean} Returns `true` if `value` is correctly classified,
  * else `false`.
  */
-const isAsyncFunction = function isAsyncFunction(fn) {
+
+var isAsyncFunction = function isAsyncFunction(fn) {
   if (supportsAsync === false || typeof fn !== 'function') {
     return false;
   }
 
-  let str;
+  var str;
+
   try {
     str = normalise(replaceComments(fToString.call(fn), ' '));
   } catch (ignore) {
@@ -49,3 +52,5 @@ const isAsyncFunction = function isAsyncFunction(fn) {
 };
 
 export default isAsyncFunction;
+
+//# sourceMappingURL=is-async-function-x.esm.js.map

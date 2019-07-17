@@ -21,29 +21,29 @@
 <a name="module_is-async-function-x"></a>
 
 ## is-async-function-x
+
 Determine if a function is a native aync function.
 
 **See**: [14.6 Async Function Definitions](https://tc39.github.io/ecma262/#sec-async-function-definitions)  
-**Version**: 1.7.0  
-**Author**: Xotic750 <Xotic750@gmail.com>  
-**License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
-**Copyright**: Xotic750  
+
 <a name="exp_module_is-async-function-x--module.exports"></a>
 
 ### `module.exports(fn)` ⇒ <code>boolean</code> ⏏
+
 Checks if `value` is classified as an `Async Function` object.
 
 **Kind**: Exported function  
 **Returns**: <code>boolean</code> - Returns `true` if `value` is correctly classified,
-else `false`.  
+else `false`.
 
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>\*</code> | The value to check. |
+| Param | Type            | Description         |
+| ----- | --------------- | ------------------- |
+| fn    | <code>\*</code> | The value to check. |
 
-**Example**  
+**Example**
+
 ```js
-var isAsyncFunction = require('is--async-function-x');
+import isAsyncFunction from 'is--async-function-x';
 
 isAsyncFunction(); // false
 isAsyncFunction(Number.MIN_VALUE); // false
