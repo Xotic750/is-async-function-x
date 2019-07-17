@@ -26,7 +26,7 @@ const asyncProto = testRes.value;
  * @returns {boolean} Returns `true` if `value` is correctly classified,
  * else `false`.
  */
-export default function isAsyncFunction(fn) {
+const isAsyncFunction = function isAsyncFunction(fn) {
   if (supportsAsync === false || typeof fn !== 'function') {
     return false;
   }
@@ -47,4 +47,6 @@ export default function isAsyncFunction(fn) {
   }
 
   return $getPrototypeOf(fn) === asyncProto;
-}
+};
+
+export default isAsyncFunction;
