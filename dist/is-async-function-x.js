@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-19T22:32:18.638Z",
+  "date": "2019-07-21T23:20:50.769Z",
   "describe": "",
   "description": "Determine if a function is a native aync function.",
   "file": "is-async-function-x.js",
   "hash": "f212f06c7eb90e19a42c",
   "license": "MIT",
-  "version": "2.0.3"
+  "version": "2.0.4"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
