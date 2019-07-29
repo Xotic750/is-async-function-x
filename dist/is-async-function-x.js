@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-27T22:06:20.601Z",
+  "date": "2019-07-29T13:52:52.841Z",
   "describe": "",
   "description": "Determine if a function is a native aync function.",
   "file": "is-async-function-x.js",
-  "hash": "8f4725f5d9335f90d3c7",
+  "hash": "ef7c57b895d22fca78ec",
   "license": "MIT",
   "version": "2.0.11"
 }
@@ -1073,10 +1073,6 @@ var getPO = gpo;
 
 
 // CONCATENATED MODULE: ./dist/is-async-function-x.esm.js
-var is_async_function_x_esm_this = undefined;
-
-function is_async_function_x_esm_newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
 
 
 
@@ -1086,14 +1082,18 @@ function is_async_function_x_esm_newArrowCheck(innerThis, boundThis) { if (inner
 var isFnRegex = /^async function/;
 var is_async_function_x_esm_test = isFnRegex.test;
 var functionCtr = attempt_x_esm.constructor;
-var is_async_function_x_esm_fToString = functionCtr.prototype.toString;
-var testRes = attempt_x_esm(function () {
-  is_async_function_x_esm_newArrowCheck(this, is_async_function_x_esm_this);
-
+var is_async_function_x_esm_fToString = functionCtr.toString;
+var testRes = attempt_x_esm(function attemptee() {
   return get_prototype_of_x_esm(functionCtr('return async function() {}')());
-}.bind(undefined));
+});
 var supportsAsync = testRes.threw === false;
 var asyncProto = testRes.value;
+
+var is_async_function_x_esm_attemptToString = function attemptToString(fn) {
+  return attempt_x_esm(function attemptee() {
+    return normalize_space_x_esm(replace_comments_x_esm(is_async_function_x_esm_fToString.call(fn), ' '));
+  });
+};
 /**
  * Checks if `value` is classified as an `Async Function` object.
  *
@@ -1102,28 +1102,25 @@ var asyncProto = testRes.value;
  * else `false`.
  */
 
+
 var is_async_function_x_esm_isAsyncFunction = function isAsyncFunction(fn) {
   if (supportsAsync === false || typeof fn !== 'function') {
     return false;
   }
 
-  var str;
+  var result = is_async_function_x_esm_attemptToString(fn);
 
-  try {
-    str = normalize_space_x_esm(replace_comments_x_esm(is_async_function_x_esm_fToString.call(fn), ' '));
-  } catch (ignore) {
+  if (result.threw) {
     return false;
   }
+
+  var str = result.value;
 
   if (is_async_function_x_esm_test.call(isFnRegex, str)) {
     return true;
   }
 
-  if (has_to_string_tag_x_esm === false) {
-    return to_string_tag_x_esm(fn) === '[object AsyncFunction]';
-  }
-
-  return get_prototype_of_x_esm(fn) === asyncProto;
+  return has_to_string_tag_x_esm ? get_prototype_of_x_esm(fn) === asyncProto : to_string_tag_x_esm(fn) === '[object AsyncFunction]';
 };
 
 /* harmony default export */ var is_async_function_x_esm = __webpack_exports__["default"] = (is_async_function_x_esm_isAsyncFunction);

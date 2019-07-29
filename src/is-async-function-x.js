@@ -7,16 +7,20 @@ import attempt from 'attempt-x';
 
 const isFnRegex = /^async function/;
 const {test} = isFnRegex;
-
 const functionCtr = attempt.constructor;
-const fToString = functionCtr.prototype.toString;
-
-const testRes = attempt(() => {
+const fToString = functionCtr.toString;
+const testRes = attempt(function attemptee() {
   return $getPrototypeOf(functionCtr('return async function() {}')());
 });
 
 const supportsAsync = testRes.threw === false;
 const asyncProto = testRes.value;
+
+const attemptToString = function attemptToString(fn) {
+  return attempt(function attemptee() {
+    return normalise(replaceComments(fToString.call(fn), ' '));
+  });
+};
 
 /**
  * Checks if `value` is classified as an `Async Function` object.
@@ -30,22 +34,19 @@ const isAsyncFunction = function isAsyncFunction(fn) {
     return false;
   }
 
-  let str;
-  try {
-    str = normalise(replaceComments(fToString.call(fn), ' '));
-  } catch (ignore) {
+  const result = attemptToString(fn);
+
+  if (result.threw) {
     return false;
   }
+
+  const str = result.value;
 
   if (test.call(isFnRegex, str)) {
     return true;
   }
 
-  if (hasToStringTag === false) {
-    return toStringTag(fn) === '[object AsyncFunction]';
-  }
-
-  return $getPrototypeOf(fn) === asyncProto;
+  return hasToStringTag ? $getPrototypeOf(fn) === asyncProto : toStringTag(fn) === '[object AsyncFunction]';
 };
 
 export default isAsyncFunction;

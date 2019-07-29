@@ -1,7 +1,3 @@
-var _this = this;
-
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
 import toStringTag from 'to-string-tag-x';
 import hasToStringTag from 'has-to-string-tag-x';
 import normalise from 'normalize-space-x';
@@ -11,14 +7,18 @@ import attempt from 'attempt-x';
 var isFnRegex = /^async function/;
 var test = isFnRegex.test;
 var functionCtr = attempt.constructor;
-var fToString = functionCtr.prototype.toString;
-var testRes = attempt(function () {
-  _newArrowCheck(this, _this);
-
+var fToString = functionCtr.toString;
+var testRes = attempt(function attemptee() {
   return $getPrototypeOf(functionCtr('return async function() {}')());
-}.bind(this));
+});
 var supportsAsync = testRes.threw === false;
 var asyncProto = testRes.value;
+
+var attemptToString = function attemptToString(fn) {
+  return attempt(function attemptee() {
+    return normalise(replaceComments(fToString.call(fn), ' '));
+  });
+};
 /**
  * Checks if `value` is classified as an `Async Function` object.
  *
@@ -27,28 +27,25 @@ var asyncProto = testRes.value;
  * else `false`.
  */
 
+
 var isAsyncFunction = function isAsyncFunction(fn) {
   if (supportsAsync === false || typeof fn !== 'function') {
     return false;
   }
 
-  var str;
+  var result = attemptToString(fn);
 
-  try {
-    str = normalise(replaceComments(fToString.call(fn), ' '));
-  } catch (ignore) {
+  if (result.threw) {
     return false;
   }
+
+  var str = result.value;
 
   if (test.call(isFnRegex, str)) {
     return true;
   }
 
-  if (hasToStringTag === false) {
-    return toStringTag(fn) === '[object AsyncFunction]';
-  }
-
-  return $getPrototypeOf(fn) === asyncProto;
+  return hasToStringTag ? $getPrototypeOf(fn) === asyncProto : toStringTag(fn) === '[object AsyncFunction]';
 };
 
 export default isAsyncFunction;
