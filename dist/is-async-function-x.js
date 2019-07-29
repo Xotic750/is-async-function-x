@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-29T13:52:52.841Z",
+  "date": "2019-07-29T14:12:53.633Z",
   "describe": "",
   "description": "Determine if a function is a native aync function.",
   "file": "is-async-function-x.js",
-  "hash": "ef7c57b895d22fca78ec",
+  "hash": "19337f5b580211c13f51",
   "license": "MIT",
   "version": "2.0.11"
 }
@@ -1094,6 +1094,10 @@ var is_async_function_x_esm_attemptToString = function attemptToString(fn) {
     return normalize_space_x_esm(replace_comments_x_esm(is_async_function_x_esm_fToString.call(fn), ' '));
   });
 };
+
+var is_async_function_x_esm_compare = function compare(fn) {
+  return has_to_string_tag_x_esm ? get_prototype_of_x_esm(fn) === asyncProto : to_string_tag_x_esm(fn) === '[object AsyncFunction]';
+};
 /**
  * Checks if `value` is classified as an `Async Function` object.
  *
@@ -1103,7 +1107,7 @@ var is_async_function_x_esm_attemptToString = function attemptToString(fn) {
  */
 
 
-var is_async_function_x_esm_isAsyncFunction = function isAsyncFunction(fn) {
+var isAsyncFunction = function isAsyncFunction(fn) {
   if (supportsAsync === false || typeof fn !== 'function') {
     return false;
   }
@@ -1114,16 +1118,14 @@ var is_async_function_x_esm_isAsyncFunction = function isAsyncFunction(fn) {
     return false;
   }
 
-  var str = result.value;
-
-  if (is_async_function_x_esm_test.call(isFnRegex, str)) {
+  if (is_async_function_x_esm_test.call(isFnRegex, result.value)) {
     return true;
   }
 
-  return has_to_string_tag_x_esm ? get_prototype_of_x_esm(fn) === asyncProto : to_string_tag_x_esm(fn) === '[object AsyncFunction]';
+  return is_async_function_x_esm_compare(fn);
 };
 
-/* harmony default export */ var is_async_function_x_esm = __webpack_exports__["default"] = (is_async_function_x_esm_isAsyncFunction);
+/* harmony default export */ var is_async_function_x_esm = __webpack_exports__["default"] = (isAsyncFunction);
 
 
 

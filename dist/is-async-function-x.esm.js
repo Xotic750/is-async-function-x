@@ -19,6 +19,10 @@ var attemptToString = function attemptToString(fn) {
     return normalise(replaceComments(fToString.call(fn), ' '));
   });
 };
+
+var compare = function compare(fn) {
+  return hasToStringTag ? $getPrototypeOf(fn) === asyncProto : toStringTag(fn) === '[object AsyncFunction]';
+};
 /**
  * Checks if `value` is classified as an `Async Function` object.
  *
@@ -39,13 +43,11 @@ var isAsyncFunction = function isAsyncFunction(fn) {
     return false;
   }
 
-  var str = result.value;
-
-  if (test.call(isFnRegex, str)) {
+  if (test.call(isFnRegex, result.value)) {
     return true;
   }
 
-  return hasToStringTag ? $getPrototypeOf(fn) === asyncProto : toStringTag(fn) === '[object AsyncFunction]';
+  return compare(fn);
 };
 
 export default isAsyncFunction;

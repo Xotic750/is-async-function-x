@@ -22,6 +22,10 @@ const attemptToString = function attemptToString(fn) {
   });
 };
 
+const compare = function compare(fn) {
+  return hasToStringTag ? $getPrototypeOf(fn) === asyncProto : toStringTag(fn) === '[object AsyncFunction]';
+};
+
 /**
  * Checks if `value` is classified as an `Async Function` object.
  *
@@ -40,13 +44,11 @@ const isAsyncFunction = function isAsyncFunction(fn) {
     return false;
   }
 
-  const str = result.value;
-
-  if (test.call(isFnRegex, str)) {
+  if (test.call(isFnRegex, result.value)) {
     return true;
   }
 
-  return hasToStringTag ? $getPrototypeOf(fn) === asyncProto : toStringTag(fn) === '[object AsyncFunction]';
+  return compare(fn);
 };
 
 export default isAsyncFunction;
