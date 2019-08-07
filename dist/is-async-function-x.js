@@ -2,7 +2,7 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-06T21:40:34.533Z",
+  "date": "2019-08-07T01:53:10.591Z",
   "describe": "",
   "description": "Determine if a function is a native aync function.",
   "file": "is-async-function-x.js",
