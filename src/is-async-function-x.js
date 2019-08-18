@@ -4,9 +4,10 @@ import normalise from 'normalize-space-x';
 import replaceComments from 'replace-comments-x';
 import $getPrototypeOf from 'get-prototype-of-x';
 import attempt from 'attempt-x';
+import methodize from 'simple-methodize-x';
 
 const isFnRegex = /^async function/;
-const {test} = isFnRegex;
+const methodizedTest = methodize(isFnRegex.test);
 const functionCtr = attempt.constructor;
 const fToString = functionCtr.toString;
 const testRes = attempt(function attemptee() {
@@ -44,7 +45,7 @@ const isAsyncFunction = function isAsyncFunction(fn) {
     return false;
   }
 
-  if (test.call(isFnRegex, result.value)) {
+  if (methodizedTest(isFnRegex, result.value)) {
     return true;
   }
 
